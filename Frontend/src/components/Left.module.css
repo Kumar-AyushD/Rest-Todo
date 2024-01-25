@@ -1,0 +1,21 @@
+.main{
+  display: grid;
+  justify-content: center;
+  background-color: rgb(127, 234, 255);
+  width: 50%;
+  height: 100%;
+}
+.calender{
+  margin-top: 50px;
+  margin-left: 10%;
+  margin-right: 10%;
+
+}
+
+.addtask{
+  margin-left: 10%;
+}
+
+.date{
+  margin-left: 10%;
+}

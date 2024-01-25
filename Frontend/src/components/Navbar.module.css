@@ -1,0 +1,21 @@
+.container{
+  display: flex;
+  background-color: antiquewhite;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+
+.appicon{
+  background-color: aqua;
+  margin: 100px;
+}
+
+.profile{
+  margin: 100px;
+  right: 0px;
+}
+
+button{
+  background-color: aquamarine;
+}
