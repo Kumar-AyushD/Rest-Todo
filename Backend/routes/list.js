@@ -72,24 +72,26 @@ router.get("/getTasks/:id", async (req, res) => {
   } catch (error) {}
 });
 
-// router.delete('/deleteOneTask/:userid/:listid/')
-router.delete('/deleteOneTask/:userId/:taskId', async (req, res) => {
+router.delete("/deleteOneTask/:userId/:taskId", async (req, res) => {
   try {
     const userId = req.params.userId;
     const taskId = req.params.taskId;
 
-    const updatedList = await List.findOneAndDelete(
-      { 'user': userId, 'body._id': taskId }
-    );
+    const updatedList = await List.findOneAndDelete({
+      user: userId,
+      "body._id": taskId,
+    });
 
     if (!updatedList) {
-      return res.status(404).json({ message: 'Task not found for the specified user and task ID' });
+      return res
+        .status(404)
+        .json({ message: "Task not found for the specified user and task ID" });
     }
 
     res.status(200).json({ message: `Deleted task with ID: ${taskId}` });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 

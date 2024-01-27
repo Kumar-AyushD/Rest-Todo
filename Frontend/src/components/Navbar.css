@@ -1,0 +1,15 @@
+.logo{
+  height: 30px;
+  width: 30px;
+}
+
+.navbar-brand{
+  color: rgb(225, 74, 32) !important;
+}
+
+.btn-nav{
+  background-color: rgb(225, 74, 32) !important;
+  border-radius: 10px !important;
+  color: aliceblue !important;
+  font-weight: bold !important;
+}
