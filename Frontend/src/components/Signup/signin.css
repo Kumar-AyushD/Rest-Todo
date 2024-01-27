@@ -1,0 +1,16 @@
+.sign-btn{
+  border: none;
+  outline: none;
+  background-color: rgb(225, 74, 32);
+  border-radius: 10px;
+  color: aliceblue;
+  font-weight: bold;
+  padding: 10px;
+  width: 205px;
+  margin: 8px;
+}
+
+.head{
+  font-size: 50px;
+  color: rgb(225, 74, 32);
+}
