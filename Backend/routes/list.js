@@ -72,38 +72,25 @@ router.get("/getTasks/:id", async (req, res) => {
   } catch (error) {}
 });
 
-// router.delete("/deleteTask/:user/:listId/:taskId", async (req, res) => {
-//   try {
-//     const { user, listId, taskId } = req.params;
+// router.delete('/deleteOneTask/:userid/:listid/')
+router.delete('/deleteOneTask/:userId/:taskId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const taskId = req.params.taskId;
 
-//     const existingUser = await User.findById(user);
-//     console.log(existingUser);
-//     if (!existingUser) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
+    const updatedList = await List.findOneAndDelete(
+      { 'user': userId, 'body._id': taskId }
+    );
 
-//     const existingList = existingUser.findById(listId);
+    if (!updatedList) {
+      return res.status(404).json({ message: 'Task not found for the specified user and task ID' });
+    }
 
-//     if (!existingList) {
-//       return res.status(404).json({ message: "List not found" });
-//     }
-
-//     const existingTask = existingList.body.id(taskId);
-
-//     if (!existingTask) {
-//       return res.status(404).json({ message: "Task not found" });
-//     }
-
-//     // Remove the task from the body array
-//     existingTask.remove();
-
-//     await existingUser.save(); // Save the updated user
-
-//     res.status(200).json({ message: "Task deleted successfully" });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: "Internal Server Error" });
-//   }
-// });
+    res.status(200).json({ message: `Deleted task with ID: ${taskId}` });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
 
 module.exports = router;
