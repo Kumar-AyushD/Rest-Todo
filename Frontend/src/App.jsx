@@ -1,4 +1,5 @@
 import About from "./components/about/About";
+// import './App.css'
 import Footer from "./components/footer/Footer";
 import Home from "./components/home/Home";
 import Navbar from "./components/header/Navbar";
@@ -7,8 +8,17 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Signup from "./components/Signup/Signup";
 import Signin from "./components/Signup/Signin";
 import Body from "./components/todo/Body";
-
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { authActions } from "./store";
 function App() {
+  const Dispatch = useDispatch();
+  useEffect(()=>{
+    const id = sessionStorage.getItem('id');
+    if(id){
+      Dispatch(authActions.login());
+    }
+  }, []);
   return (
     <>
       <Router>

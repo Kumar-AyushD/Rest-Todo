@@ -1,0 +1,43 @@
+.all{
+  display: grid;
+  justify-content: center;
+  width: 40%;
+  min-height: 120%vh;
+  border: 3px solid black;
+  box-shadow: 5px 5px #c67878;
+  border-radius: 10px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.boxs{
+  border: 1px solid black;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dates{
+  font-weight: bolder;
+  color: rgb(225, 74, 32);
+}
+
+.indtask{
+  border: 1px solid black;
+  border-radius: 6px;
+  margin: 3px;
+  padding: 2px;
+  box-shadow: 1px 1px #c67878;
+}
+
+.titlcheck{
+  display: flex;
+  justify-content: space-around;
+}
+
+.deledit{
+  display: flex;
+  justify-content: space-around;
+}

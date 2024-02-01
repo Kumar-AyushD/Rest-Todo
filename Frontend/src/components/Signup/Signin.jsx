@@ -1,5 +1,8 @@
 import React from "react";
 import "./signup.css";
+import axios from 'axios';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   MDBContainer,
   MDBRow,
@@ -8,8 +11,30 @@ import {
   MDBCardBody,
   MDBCardImage,
 } from "mdb-react-ui-kit";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store";
 
-function Signup() {
+const Signup = () => {
+  const Dispatch = useDispatch();
+  const history = useNavigate();
+  const [Inputs, setInputs] = useState({
+    email: "",
+    password: "",
+  });
+  const change = (e) => {
+    const { name, value } = e.target;
+    setInputs({ ...Inputs, [name]: value });
+  };
+  const submit = async (e) => {
+    e.preventDefault();
+    await axios
+      .post("http://localHost:3001/api/v1/signin", Inputs)
+      .then((res) => {
+        sessionStorage.setItem("id", res.data.others._id);
+        Dispatch(authActions.login());
+        history('/todo');
+      });
+  };
   return (
     <MDBContainer fluid>
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
@@ -28,6 +53,8 @@ function Signup() {
                 type="email"
                 name="email"
                 placeholder="Enter your Email"
+                value={Inputs.email}
+                onChange={change}
               />
 
               <input
@@ -35,9 +62,11 @@ function Signup() {
                 type="password"
                 name="password"
                 placeholder="Enter your Password"
+                value={Inputs.password}
+                onChange={change}
               />
 
-              <button className="sign-btn" size="lg">
+              <button className="sign-btn" size="lg" onClick={submit}>
                 SignIn
               </button>
             </MDBCol>

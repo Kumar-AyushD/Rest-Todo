@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 const mySchema = new mongoose.Schema({
   id: {
-    type: Date,
+    type: String,
+    required: true,
   },
   body: [
     {
@@ -16,12 +17,10 @@ const mySchema = new mongoose.Schema({
       },
     },
   ],
-  user: [
-    {
-      type: mongoose.Types.ObjectId,
-      ref: "User",
-    },
-  ],
+  user: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 module.exports = mongoose.model("List", mySchema);

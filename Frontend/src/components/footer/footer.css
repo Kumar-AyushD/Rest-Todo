@@ -1,3 +1,8 @@
 .footer{
-  background-color: rgb(214, 190, 206);
+  background-color: rgb(225, 74, 32);
+  margin-top: 25px;
+}
+.foot{
+  --bs-text-opacity: 2;
+  color: white;
 }

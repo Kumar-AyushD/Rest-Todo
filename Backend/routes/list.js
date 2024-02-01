@@ -2,42 +2,37 @@ const router = require("express").Router();
 const User = require("../models/users");
 const List = require("../models/list");
 
-router.post("/addTask", async (req, res) => {
+router.post("/addOrUpdateTask", async (req, res) => {
   try {
-    const { id, body, email } = req.body;
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      const list = new List({ id, body, user: existingUser });
-      await list.save();
-      existingUser.list.push(list);
-      existingUser.save().then(() => res.status(200).json({ list }));
-    }
-  } catch (error) {
-    console.log(error);
-  }
-});
+    const { id, body, _id } = req.body;
 
-router.patch("/updateTask/:id", async (req, res) => {
-  try {
-    const { body, email } = req.body;
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ _id });
     if (!existingUser) {
       return res.status(404).json({ message: "User not found" });
     }
-    const existingList = await List.findById(req.params.id);
-    if (!existingList) {
-      return res.status(404).json({ message: "List not found" });
-    }
-    existingList.body = existingList.body.concat(body);
-    existingList.user = existingUser._id;
 
-    await existingList.save().then(() => {
-      res.status(200).json({ message: "List updated successfully" });
-    });
+    // Check if a task with the same id already exists
+    const foundListQuery = List.findOne({ user: existingUser._id, id });
+    const foundList = await foundListQuery.exec();
+
+    if (foundList) {
+      // If the task exists, update it
+      foundList.body = foundList.body.concat(body);
+      await foundList.save();
+      res.status(200).json({ message: "Task updated successfully" });
+    } else {
+      // If the task doesn't exist, add a new task
+      const list = new List({ id, body, user: existingUser });
+      await list.save();
+      existingUser.list.push(list);
+      existingUser.save().then(() => res.status(200).json({ message: "Task added successfully" }));
+    }
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
 
 router.delete("/deleteAllTasks/:userId", async (req, res) => {
   try {
@@ -63,7 +58,6 @@ router.delete("/deleteAllTasks/:userId", async (req, res) => {
 router.get("/getTasks/:id", async (req, res) => {
   try {
     const list = await List.find({ user: req.params.id });
-    // console.log(req.params.id);
     if (list.length !== 0) {
       res.status(200).json({ list: list });
     } else {
@@ -77,10 +71,16 @@ router.delete("/deleteOneTask/:userId/:taskId", async (req, res) => {
     const userId = req.params.userId;
     const taskId = req.params.taskId;
 
-    const updatedList = await List.findOneAndDelete({
-      user: userId,
-      "body._id": taskId,
-    });
+    const updatedList = await List.findOneAndUpdate(
+      {
+        user: userId,
+        "body._id": taskId,
+      },
+      {
+        $pull: { body: { _id: taskId } },
+      },
+      { new: true }
+    );
 
     if (!updatedList) {
       return res
@@ -88,11 +88,52 @@ router.delete("/deleteOneTask/:userId/:taskId", async (req, res) => {
         .json({ message: "Task not found for the specified user and task ID" });
     }
 
-    res.status(200).json({ message: `Deleted task with ID: ${taskId}` });
+    if (updatedList.body.length === 0) {
+      await List.findOneAndDelete({ user: userId });
+      return res.status(200).json({
+        message: `Deleted task with ID: ${taskId} and the entire document`,
+      });
+    }
+
+    res
+      .status(200)
+      .json({ message: `Deleted task with ID: ${taskId}`, updatedList });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
+router.put("/updateTask/:userId/:taskId", async (req, res) => {
+  const userId = req.params.userId;
+  const taskId = req.params.taskId;
+
+  const { task, completed } = req.body.body[0];
+
+  try {
+    const updatedUser = await List.findOneAndUpdate(
+      { user: userId, "body._id": taskId },
+      {
+        $set: {
+          "body.$.task": task,
+          "body.$.completed": completed,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User or task not found" });
+    }
+
+    res.json({ success: true, message: "Task updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 module.exports = router;

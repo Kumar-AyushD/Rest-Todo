@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "./signup.css";
+import axios from "axios";
+import {useNavigate} from 'react-router-dom';
 import {
   MDBContainer,
   MDBRow,
@@ -9,7 +11,32 @@ import {
   MDBCardImage,
 } from "mdb-react-ui-kit";
 
-function Signup() {
+const Signup = () => {
+  const history = useNavigate();
+  const [Inputs, setInputs] = useState({
+    email: "",
+    username: "",
+    password: "",
+  });
+  const change = (e) => {
+    const { name, value } = e.target;
+    setInputs({ ...Inputs, [name]: value });
+  };
+  const submit = async (e) => {
+    e.preventDefault();
+    await axios
+      .post("http://localHost:3001/api/v1/register", Inputs)
+      .then((res) => {
+        if(res.data.message === 'User already exists.'){
+          alert(res.data.message);
+        }
+        else{
+          alert(res.data.message);
+          setInputs({ email: "", username: "", password: "" });
+        }
+        history('/signin');
+      });
+  };
   return (
     <MDBContainer fluid>
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
@@ -28,12 +55,16 @@ function Signup() {
                 type="email"
                 name="email"
                 placeholder="Enter your Email"
+                onChange={change}
+                value={Inputs.email}
               />
               <input
                 className="p-2 my-3"
                 type="username"
                 name="username"
                 placeholder="Enter your Username"
+                onChange={change}
+                value={Inputs.username}
               />
 
               <input
@@ -41,9 +72,11 @@ function Signup() {
                 type="password"
                 name="password"
                 placeholder="Enter your Password"
+                onChange={change}
+                value={Inputs.password}
               />
 
-              <button className="sign-btn" size="lg">
+              <button className="sign-btn" size="lg" onClick={submit}>
                 Register
               </button>
             </MDBCol>
@@ -63,6 +96,6 @@ function Signup() {
       </MDBCard>
     </MDBContainer>
   );
-}
+};
 
 export default Signup;

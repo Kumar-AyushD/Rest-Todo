@@ -1,9 +1,8 @@
 .main{
   display: grid;
   justify-content: center;
-  width: 50%;
-  height: 100%;
-  
+  width: 40%;
+  min-height: 120%vh;
 }
 
 .cards{
@@ -22,7 +21,7 @@
 
 .addtask{
   margin-top: 10px;
-  margin-left: 10%;
+  margin-left: 8.5%;
   margin-right: 10%;
 }
 
@@ -30,17 +29,19 @@
   border: 1px solid rgb(154, 147, 147);
   border-radius: 3px;
   margin-top: 17px;
-  max-width: 200px;
-  margin-left: 13%;
+  max-width: 350px;
+  margin-left: 10%;
   margin-right: 10%;
   height: 45px;
-  padding: 7px;
+  padding: 7px 7px 7px 21%;
   color: rgb(130, 123, 123);
 }
 
 #textarea{
-  display: none;
-  min-width: 200px;
+  margin-left: 10%;
+  min-width: 97%;
+  max-width: 350px;
+  text-align: center;
 }
 
 .add-btn{
