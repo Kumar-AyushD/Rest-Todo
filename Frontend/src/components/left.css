@@ -56,3 +56,12 @@
   margin: 8px;
   margin-bottom: 20px;
 }
+
+.welcome{
+  text-decoration: underline;
+  text-align: center;
+  font-size: large;
+  color: rgb(225, 74, 32);
+  font-size: 40px;
+  font-weight: bolder;
+}

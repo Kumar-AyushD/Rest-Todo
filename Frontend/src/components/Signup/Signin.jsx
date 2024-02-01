@@ -21,10 +21,12 @@ const Signup = () => {
     email: "",
     password: "",
   });
+
   const change = (e) => {
     const { name, value } = e.target;
     setInputs({ ...Inputs, [name]: value });
   };
+
   const submit = async (e) => {
     e.preventDefault();
     await axios
@@ -35,6 +37,7 @@ const Signup = () => {
         history('/todo');
       });
   };
+
   return (
     <MDBContainer fluid>
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
@@ -77,8 +80,9 @@ const Signup = () => {
               className="order-1 order-lg-2 d-flex align-items-center"
             >
               <MDBCardImage
-                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"fluid alt="Sample image"
-                
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                fluid
+                alt="Sample image"
               />
             </MDBCol>
           </MDBRow>

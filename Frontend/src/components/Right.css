@@ -11,16 +11,17 @@
 }
 
 .boxs{
-  border: 1px solid black;
+  border: 1px solid white;
   border-radius: 8px;
   margin: 10px;
   padding: 5px;
-  width: 100%;
+  min-width: 100%;
   box-sizing: border-box;
 }
 
 .dates{
   font-weight: bolder;
+  font-size: large;
   color: rgb(225, 74, 32);
 }
 
@@ -32,12 +33,56 @@
   box-shadow: 1px 1px #c67878;
 }
 
+.indtaskr{
+  border: 1px solid black;
+  border-radius: 6px;
+  margin: 3px;
+  padding: 2px;
+  box-shadow: 1px 1px #c67878;
+  background-color: rgb(11, 188, 179);
+}
+
 .titlcheck{
+  margin: 1px;
+  color: #280eea;
+  display: flex;
+  justify-content: space-around;
+}
+
+.titlcheckr{
+  background-color: #b86077;
+  margin: 1px;
+  color: #280eea;
   display: flex;
   justify-content: space-around;
 }
 
 .deledit{
+  color: #ea0e49;
   display: flex;
   justify-content: space-around;
+}
+
+.falsy{
+  margin-top: 10px;
+  text-decoration: line-through;
+}
+
+.righty{
+  margin-top: 10px;
+}
+
+.dd{
+  display: flex;
+  justify-content: space-between;
+}
+
+.deleteAll{
+  color: red;
+  font-size: 20px;
+}
+
+.updater{
+  display: flex;
+  justify-content: center;
 }

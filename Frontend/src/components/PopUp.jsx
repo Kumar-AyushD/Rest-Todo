@@ -1,3 +1,4 @@
+import './popup.css'
 import React, { useState } from "react";
 import axios from "axios";
 let _id = sessionStorage.getItem("id");
@@ -32,9 +33,9 @@ const PopUp = ({ id, task, taskId, setIsShowPop }) => {
   };
 
   return (
-    <div>
-      <input type="text" onChange={handleOnchange} value={value} />
-      <button onClick={updateTask} >Update</button>
+    <div className="popup">
+      <input className='ini' type="text" onChange={handleOnchange} value={value} />
+      <button className='ipdate-btn' onClick={updateTask} >Update</button>
     </div>
   );
 };

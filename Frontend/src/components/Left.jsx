@@ -10,8 +10,21 @@ let _id = sessionStorage.getItem("id");
 
 const Left = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  // console.log(selectedDate);
 
+  const [user, setUser] = useState("");
+  const getuser = async () => {
+    try {
+      const gotuser = await axios.get(`http://localhost:3001/api/v1/getUser/${_id}`);
+      setUser(gotuser.data.username); 
+      console.log(gotuser.data.username);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  useEffect(()=>{
+    getuser();
+  }, []);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -46,6 +59,7 @@ const Left = () => {
         } else {
           toast.error("Log In first");
         }
+        getuser();
       }
     } catch (error) {
       console.error(error);
@@ -57,7 +71,7 @@ const Left = () => {
     const fetch = async () => {
       await axios
         .get(`http://localHost:3001/api/v2/getTasks/${_id}`)
-        .then((res) => setArray(res.data.list));
+        .then((res) => setArray(res.data.list))
     };
     fetch();
   }, [Submit]);
@@ -65,6 +79,7 @@ const Left = () => {
   return (
     <div className="main">
       <ToastContainer />
+      <div className="welcome">Welcome {user}</div>
       <div className="cards">
         <div className="calender">
           <ReactCalendar onDateChange={handleDateChange} />

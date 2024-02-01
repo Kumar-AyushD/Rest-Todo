@@ -39,4 +39,19 @@ router.post("/signin", async (req, res) => {
   }
 });
 
+router.get("/getUser/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (user && user.list.length > 0) {
+      res.status(200).json({ username: user.username });
+    } else {
+      res.status(200).json({ message: "No Tasks" });
+    }
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 module.exports = router;

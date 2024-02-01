@@ -34,21 +34,20 @@ router.post("/addOrUpdateTask", async (req, res) => {
 });
 
 
-router.delete("/deleteAllTasks/:userId", async (req, res) => {
+router.delete("/deleteAllTasks/:objectId", async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const objectId = req.params.objectId;
 
-    const deletedLists = await List.deleteMany({ user: userId });
+    const deletedLists = await List.deleteOne({ _id: objectId });
 
     if (deletedLists.deletedCount === 0) {
       return res
         .status(404)
         .json({ message: "No lists found for the specified user" });
     }
-
     res
       .status(200)
-      .json({ message: `Deleted all lists for user with id: ${userId}` });
+      .json({ message: `Deleted all lists with id: ${objectId}` });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });

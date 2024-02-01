@@ -1,6 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import "./home.css"
 
 const Home = () => {
+  const navigate = useNavigate();
+  const handleonMaketodo = () => {
+    navigate('/todo');
+  }
   return (
     <div className="home">
       <div className="container">
@@ -13,7 +18,7 @@ const Home = () => {
           it's work, personal projects, or daily chores, our app simplifies your
           to-do list and makes productivity a breeze.
         </p>
-        <button className="home-btn">Make to-do list</button>
+        <button className="home-btn" onClick={handleonMaketodo}>Make to-do list</button>
       </div>
     </div>
   );
