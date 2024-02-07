@@ -10,6 +10,16 @@
   box-sizing: border-box;
 }
 
+@media screen and (max-width: 700px) {
+  .all {
+    margin: 20px;
+    width: 90%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .boxs{
   border: 1px solid white;
   border-radius: 8px;
@@ -85,4 +95,21 @@
 .updater{
   display: flex;
   justify-content: center;
+}
+
+.checkbox-round {
+  margin-top: 12px;
+  width: 1em;
+  height: 1em;
+  background-color: rgb(220, 213, 213);
+  border-radius: 50%;
+  border: 1px solid #7e7474;
+  appearance: none;
+  /* -webkit-appearance: none; */
+  outline: none;
+  cursor: pointer;
+}
+
+.checkbox-round:checked {
+  background-color: rgb(225, 65, 65);
 }

@@ -10,7 +10,6 @@ let _id = sessionStorage.getItem("id");
 
 const Left = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-
   const [user, setUser] = useState("");
   const getuser = async () => {
     try {
@@ -24,14 +23,14 @@ const Left = () => {
   
   useEffect(()=>{
     getuser();
-  }, []);
+  }, [_id]);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
     setdata({ id: date.toLocaleDateString(), body: "" });
   };
 
-  const [Inputs, setdata] = useState({ id: "", body: "" });
+  const [Inputs, setdata] = useState({ id:  new Date().toLocaleDateString(), body: "" });
   const [Array, setArray] = useState([]);
 
   const change = (e) => {
@@ -107,4 +106,3 @@ const Left = () => {
 };
 
 export default Left;
-// export {Submit};

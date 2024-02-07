@@ -6,3 +6,12 @@
   align-items: center;
   /* background-color: #E0CCBE; */
 }
+
+@media screen and (max-width: 700px) {
+  .todo {
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+  }
+}

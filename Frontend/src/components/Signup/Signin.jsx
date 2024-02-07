@@ -70,7 +70,7 @@ const Signup = () => {
               />
 
               <button className="sign-btn" size="lg" onClick={submit}>
-                SignIn
+                Sign In
               </button>
             </MDBCol>
 

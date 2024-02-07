@@ -1,5 +1,5 @@
 import About from "./components/about/About";
-// import './App.css'
+import './App.css'
 import Footer from "./components/footer/Footer";
 import Home from "./components/home/Home";
 import Navbar from "./components/header/Navbar";
@@ -11,6 +11,7 @@ import Body from "./components/todo/Body";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { authActions } from "./store";
+import PopUp from "./components/PopUp";
 function App() {
   const Dispatch = useDispatch();
   useEffect(()=>{
@@ -29,6 +30,7 @@ function App() {
           <Route path="/todo" element={<Body />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
+          <Route path="/update" element={<PopUp />} />
         </Routes>
       </Router>
 

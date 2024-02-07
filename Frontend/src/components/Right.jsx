@@ -57,6 +57,7 @@ function Right() {
       });
   };
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -95,6 +96,7 @@ function Right() {
                           <p className="falsy">{tasks.task}</p>
                           <input
                             type="checkbox"
+                            className="checkbox-round"
                             onClick={() => updateTask(item, tasks)}
                           />
                         </div>
@@ -121,6 +123,7 @@ function Right() {
                           <p className="righty">{tasks.task}</p>
                           <input
                             type="checkbox"
+                            className="checkbox-round"
                             onClick={() => updateTask(item, tasks)}
                           />
                         </div>

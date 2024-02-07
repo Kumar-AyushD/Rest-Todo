@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { RiTodoFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -10,10 +11,10 @@ const Navbar = () => {
   const logOut = () => {
     sessionStorage.clear("id");
     Dispatch(authActions.logout());
-  }
+  };
   return (
-    <nav className="navbar navbar-expand-lg">
-      <div className="container">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <div className="container-fluid">
         <Link className="navbar-brand" to="#">
           <RiTodoFill /> todo
         </Link>
@@ -21,7 +22,7 @@ const Navbar = () => {
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
+          data-bs-target=".navbar-collapse"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
@@ -36,32 +37,24 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item mx-2">
-              <Link className="nav-link active" aria-current="page" to="/about">
+              <Link className="nav-link active" to="/about">
                 About us
               </Link>
             </li>
             <li className="nav-item mx-2">
-              <Link className="nav-link active" aria-current="page" to="/todo">
+              <Link className="nav-link active" to="/todo">
                 todo
               </Link>
             </li>
             {!isLoggedIn && (
               <>
                 <li className="nav-item mx-2">
-                  <Link
-                    className="nav-link active btn-nav"
-                    aria-current="page"
-                    to="/signup"
-                  >
+                  <Link className="nav-link active btn-nav" to="/signup">
                     SignUp
                   </Link>
                 </li>
                 <li className="nav-item mx-2">
-                  <Link
-                    className="nav-link active btn-nav"
-                    aria-current="page"
-                    to="/signin"
-                  >
+                  <Link className="nav-link active btn-nav" to="/signin">
                     SignIn
                   </Link>
                 </li>
@@ -71,7 +64,6 @@ const Navbar = () => {
               <li className="nav-item mx-2">
                 <Link
                   className="nav-link active btn-nav"
-                  aria-current="page"
                   to="/"
                   onClick={logOut}
                 >
